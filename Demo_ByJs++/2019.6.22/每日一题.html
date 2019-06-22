@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>每日一题</title>
+    <style>
+    .J_list{
+        list-style: none;
+    }
+
+    button{
+        margin: 5px 0 0 5px
+    }
+    </style>
+</head>
+<body>
+    <ul class="J_list"></ul>
+</body>
+    <script type="text/Tpl" id="J_Tpl">
+    <li>这是第{{}}项<button>删除</button></li>
+    </script>
+    <script type="text/javascript">
+    // 在一个ul中动态插入50个li，考虑性能优化，使用三种方法
+    // 1: 文档碎片 + 事件代理
+    // 2: 字符串拼接 + 事件代理
+    // 3: 正则模板拼接 + 事件代理
+    // 
+    // 方法1： 文档碎片 + 事件代理 
+    // ;(function(doc){
+    // var oList = doc.getElementsByClassName('J_list')[0],
+    //     oFrag = doc.createDocumentFragment();
+
+    //     for(var i = 0; i < 50; i++){
+    //       var oItem = doc.createElement('li');
+    //           oItem.innerHTML = (i + 1) + '<button>删除</button>'
+    //           oFrag.appendChild(oItem);
+    //     }
+        
+    //     oList.appendChild(oFrag);
+    //     oList.addEventListener('click',function(e){
+    //     var e = e || window.event,
+    //        tar = e.target || e.srcElement
+           
+    //     if(tar.tagName === 'BUTTON'){
+    //         Parent(tar).remove();
+    //     }
+    //         function Parent(node){
+    //             return node.parentNode
+    //         };
+    //     },false);
+    // })(document);
+    // 方法2： 字符串拼接 + 事件代理
+    // ;(function(doc){
+    // var oList = doc.getElementsByClassName('J_list')[0],
+    //     list = '';
+          
+    //     for(var i = 0; i < 50; i++){
+    //     list += '<li>第' + (i + 1)  + '项<button>删除</button></li>'
+    //     }
+    // oList.innerHTML = list;
+    // oList.addEventListener('click',function(e){
+    //     var e = e || window.event,
+    //        tar = e.target || e.srcElement;
+
+            
+    //     if(tar.tagName === 'BUTTON'){
+    //         Parent(tar).remove();
+    //     }
+    //        function Parent(node){
+    //            return node.parentNode
+    //        }
+    // })
+    // })(document);
+    // 方法3： 模板正则替代 + 事件代理
+;(function(doc){
+    var oList = doc.getElementsByClassName('J_list')[0],
+        oTpl = doc.getElementById("J_Tpl").innerHTML,
+        list = "";
+    
+    for(var i = 0; i < 50; i++){
+        list += oTpl.replace(/{{(.*?)}}/,(i + 1));
+    }
+        
+    oList.innerHTML = list;
+    oList.addEventListener('click',function(e){
+        var e = e || window.event,
+           tar = e.target || e.srcElement;
+            
+        if(tar.tagName === 'BUTTON'){
+            Parent(tar).remove();
+        }
+        function Parent(node){
+            return node.parentNode
+        };
+    });
+})(document);
+
+;(function(){
+//  第一题：({} + {}).length 
+//  第一题隐式转换，引用类型的值不能用于一元运算符 +号，调用了{}.toString || Object.prototype.toString方法
+//  把{}隐式转换成了一个字符串  即：'[object Object]'
+//  第二题：([] + []).length
+//  第二题隐式转换，调用了数组上[]的toString方法，数组原型上面的toString方法跟Object原型上的toString方法有所不同
+//  数组的toString方法是把数组变成字符串，并用逗号隔开，题目是空数组，空数组变成字符串，自然没有长度，所以[] + []等于0
+//  第三题：(function (){}).length
+//  这里的.length是function的形参长度
+// <!--------------->
+//  [object Object]
+//  前面泛指对象，后面特指对象。经过Object.toString后，这是简单类型会在后台临时转换包装类，所以字符串，数组，布尔值
+//  在这里过了{}.toSring后，前面都是泛指的'[object ].
+//  扩展出来的工具函数：
+    function myTypeOf(val){
+        var _type = typeof(val),
+            _toString = {}.toString;
+
+        var res = {
+             '[object Object]' : 'Obj-Object',
+             '[object Array]'  : 'Obj-Array',
+             '[object Number]' : 'Obj-Number',
+             '[object String]' : 'Obj-String',
+             '[object Boolean]': 'Obj-Boolean',
+         };       
+        
+        if(val === null){
+            return 'null'
+        }else if(_type === 'object'){
+            return res[_toString.call(val)];
+        }else{
+            return _type;
+        }
+     }
+})();
+    </script>
+    </script>
+</html>

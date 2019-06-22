@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tab_Change</title>
+    <style>
+    .tab {
+  width: 500px;
+  height: 500px;
+  margin: 100px auto;
+}
+
+.tab .nav {
+  height: 50px;
+}
+
+.tab .nav .item {
+  float: left;
+  width: 100px;
+  text-align: center;
+  line-height: 50px;
+}
+
+.tab .nav .item.current {
+  background-color: #000;
+  color: #fff;
+}
+
+.tab .page {
+  position: relative;
+  height: 450px;
+  border: 1px solid #000;
+}
+
+.tab .page .item {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 450px;
+  font-size: 100px;
+}
+
+.tab .page .item.active {
+  display: block;
+}
+    </style>
+</head>
+<body>
+    <div class="tab">
+        <div class="nav j-nav">
+          <div class="item current">选项一</div>
+          <div class="item">选项二</div>
+          <div class="item">选项三</div>
+        </div>
+        <div class="page j-page">
+          <div class="item active">页面一</div>
+          <div class="item">页面二</div>
+          <div class="item">页面三</div>
+        </div>
+      </div>
+    <script type="text/javascript">
+    ;(function(doc){
+  // 做一个选项卡，点击选项卡内容跟着切换
+    // 两种做法：
+    // 1：加类去类用循环 2: 用下标去加类去类
+    // 1:
+    var oNav = doc.getElementsByClassName('j-nav')[0],
+      oPage = doc.getElementsByClassName('j-page')[0],
+      oItems = oNav.getElementsByClassName('item'),
+      oPages = oPage.getElementsByClassName('item'),
+      curIdx = 0;
+
+  //1、每个模块都需要一个初始化函数
+  var init = function () {
+    //解释：这个模块被加载的时候需要执行的函数，都放在这个里面去执行
+    bindEvent();
+  }
+
+  //2、每个模块都需要一个函数去管理事件处理函数的绑定
+  function bindEvent () {
+    //解释：所有的事件处理函数的绑定行为都必须放在这里面统一进行管理
+    oNav.addEventListener('click', navClick, false);
+  }
+
+  //3、如果有JS动态渲染页面的程序
+  // function render () {
+  //   //解释：管理JS动态渲染页面的程序集合
+  // } 
+
+  function navClick (e) {
+    var e = e || window.event,
+        tar = e.target || e.srcElement, 
+        className = tar.className;
+
+    if (className === 'item') {
+      var newIdx = [].indexOf.call(oItems, tar);
+      tabChange(tar);
+      pageChange(curIdx, newIdx);
+      curIdx = newIdx;
+    }
+  }
+
+  function tabChange (target) {
+    oItems[curIdx].className = 'item';
+    target.className += ' current';
+  }
+
+  function pageChange (oldIdx, newIdx) {
+    oPages[oldIdx].className = 'item';
+    oPages[newIdx].className += ' active';
+  }
+ 
+    return init();
+    })(document);
+    </script>
+</body>
+</html>

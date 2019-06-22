@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双飞翼布局</title>
+    <style>
+        /* 双飞翼布局 */
+        /* 双飞翼布局也是三栏布局，中间自适应，左右固定宽度，与圣杯不同的是，圣杯用padding让整个大盒子居中，双飞翼没有，双飞翼
+        不用相对定位position:relative */
+        /* 双飞翼用左浮动（建议设置公共样式）浮动，高度100% */
+        /* 左侧栏：margin-left: 100% */
+        /* 右侧栏: margin-left: 自身宽度 */
+        /* 再设置一个盒子做为中间栏的子节点，用外边距让它居中，用做内容的呈现，如果不多设置一个盒子的，则中间栏的内容会被遮住 */
+    html,
+    body,
+   .wrap{
+      margin: 0;
+      height: 100%;  
+   }
+
+   .box{
+       float: left;
+       height: 100%;
+   }
+
+   .middle{
+       width: 100%;
+       background-color: #ff0;
+   }
+
+   .middle .content{
+       height: 100%;
+       margin: 0 200px 0 150px;
+       font-size: 56px;
+       text-align: center;
+   }
+
+   .left{
+       margin-left: -100%;
+       width: 150px;
+       background-color: #424242;
+   }
+
+   .right{
+       margin-left: -200px; 
+       width: 200px;
+       background-color: #656498;
+   }
+    
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="box middle">
+            <div class="content">111111</div>
+        </div>
+        <div class="box left"></div>
+        <div class="box right"></div>
+    </div>
+</body>
+</html>

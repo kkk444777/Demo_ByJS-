@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>圣杯布局</title>
+</head>
+<style>  
+                              /* 圣杯布局
+        /* 左右固定，中间实现自适应,中间一栏优先加载，那么DOM结构必须中间一栏先写好，再写左右*/
+        /* 1:加一个大盒子，然后用padding让中间栏居中 */
+        /* 2:左右两栏用浮动，然后用相对定位*/
+        /* 3:左边一栏，先移动自身的宽度，往左边走，归零，然后相对定位-100%，左边一栏上去 */
+        /* 4:右边一栏，先相对定位-100%，让它上去，然后margin-left100%，让它过去右边 */
+        /* 完 */
+   html,
+   body,
+   .wrap{
+      margin: 0;
+      height: 100%;  
+   }
+
+   .wrap{
+       padding: 0 200px 0 150px;
+   }
+    
+   .middle{
+       height: 100%;
+       background-color: #ff0000;
+   }
+
+    .left,
+   .right{
+       float: left;
+       height: 100%;
+   }
+
+    
+   .left{
+       position: relative;
+       top: -100%;
+       width: 150px;
+       margin-left: -150px;
+       background-color: #424242;
+   }
+
+   .right{
+       position: relative;
+       top: -100%;
+       width: 200px;
+       margin-left: 100%;
+       background-color: #585858;
+   }
+
+</style>
+<body>
+    <div class="wrap">
+        <div class="middle"></div>
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+</body>
+</html>
