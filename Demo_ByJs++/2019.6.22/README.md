@@ -15,7 +15,7 @@
 <li> 同样也是左右固定，中间自适应，中间一栏在DOM结构中优先书写 </li>
 <li> 双飞翼用的左中右浮动，不用position:relative，所以在类名上最好写公共样式</li>
 <li> 左边一栏：写个margin-left:-100%就上去了，因为float:left的缘故，加个margin,左边就能缩上去的 </li>
-<li> 右边一栏：margin-left:200px也上去了</li>
+<li> 右边一栏：margin-left:-200px也上去了</li>
 <li> 中间一栏必须设置多一个内容盒子让它居中，不然直接在middle里面写东西是看不到的，因为被左边的遮挡住了</li>
 </ul>
 <p>
