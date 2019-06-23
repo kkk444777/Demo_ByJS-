@@ -71,6 +71,13 @@ function(){}，里面没有形参，没有形参，那不就是0嘛？所以打�
 <p>在这里[{}]是啥东西阿？不就是数组里面放了一个对象吗？对象的隐式转换是啥？不就是一堆字符串嘛。'[object Object]' 那么1 + 字符串的'[object Object]'是啥？字符串拼接阿，能是啥，所以结果是'1[object Object]'
 <p>第三题： 1 + [1,1] = ? </p>
 <p>这个同第一题已经大同小异了，如果能理解第一道题的话，那么第三道题也应该不成问题。还是调用数组上面的toString方法，把数组变成字符串,项与项之间用逗号隔开也就是变成字符串'1,1'了，1 + '1,1'还是字符串拼接，结果即为'11,1'.
+<li>讲完了题目，我们在后面再来说说这个valueOf,valueOf是一种将对象转换成原始值的方法。数组原型上的valueOf与对象原型上的valueOf相同，都是把对象转换成原始值，且在涉及到做运算符号做运算的时候，valueOf的优先级要高于toString,也就是说在valueOf失效后，无法将对象转换成原始值的时候，这个时候再调用toString</li>
+<p>我们可以做一个例子测试一下：先声明一个var a = [3]</p>
+<p>重写valueOf跟toString方法，测试其优先级别。 a.valueOf = function(){return 1} a.toString = function(){return 2}</p>
+<p>然后我们再console.log(a + 1) ，结果是2，我们改写了valueOf，里面是return 1，现在a + 1 = 2，即a就是1，说明valueOf执行优先级别要高于toString</p>
+<p>再来看看下一个情况，那么当valueOf里面返回是对象会怎么样？即a.valueOf = function(){return {}} a.toString = function(){return 2}</p>
+<p>继续console.log(a + 1)，返回结果为3，toString里面我们返回了2，结果为3，说明最后执行了toString。这说明了一个情况，当我们valueOf里面是对象时候，valueOf搞不定了，这个时候toString再出来帮忙执行它的toString方法。那么这次测试是在一元加法运算的情况下做测试的，所以我们也可以说：在一元加法运算的情况下，复杂数据类型对象，数组会先执行它们原型上的valueOf方法，如果不能转换成原始值，再执行toString方法，变成一堆字符...'[object Object]' ''...
 </ul>
+    
 
 
