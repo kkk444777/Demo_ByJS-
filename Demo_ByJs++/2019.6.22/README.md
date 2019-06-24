@@ -55,7 +55,8 @@
 function(a){}，再打印一下console.log(function(a).length)，出来的结果是1，这样我们就很清晰的知道，Function.length属性就是形参的长度。那么回到题目
 function(){}，里面没有形参，没有形参，那不就是0嘛？所以打印结果即为0
 </li>
-<li>最后封装了一个工具函数：用来检查值的类型：null则返回null,出现相对于的'[object Object]'就把它替换成自己封装对象里面的属性</li>
+<h5><li>最后封装了一个工具函数：用来检查值的类型：null则返回null,出现相对于的'[object Object]'就把它替换成自己封装对象里面的属性</li></h5>
+    <p> 工具函数myTypeof：封装一个对象，用来替换typeof方法检测出来的Obj类型，那么在javaScript中null也是Obj类型，首先我们要把null排除掉，即typeof检测加过为null时，返回'null',然后才是obj类型的判断，{} || []，所以你封装一个对象保存你要替换的东西，然后检测到对象的时候，就传进入这个对象的赋值，还有把它返回回来即可</p>
 <hr />
 <h4>4：TabCard选项卡，2种方式，1：循环增删类 2：下标增删类</h4> 
 <h5>TabCard选项卡其中类名的增删切换有两种做法：第一种是常规的for循环增删类 第二种是使用下标索引增删类</h5>
@@ -85,7 +86,7 @@ function(){}，里面没有形参，没有形参，那不就是0嘛？所以打�
 <p>重写valueOf跟toString方法，测试其优先级别。 a.valueOf = function(){return 1} a.toString = function(){return 2}</p>
 <p>然后我们再console.log(a + 1) ，结果是2，我们改写了valueOf，里面是return 1，现在a + 1 = 2，即a就是1，说明valueOf执行优先级别要高于toString</p>
 <p>再来看看下一个情况，那么当valueOf里面返回是对象会怎么样？即a.valueOf = function(){return {}} a.toString = function(){return 2}</p>
-<p>继续console.log(a + 1)，返回结果为3，toString里面我们返回了2，结果为3，说明最后执行了toString。这说明了一个情况，当我们valueOf里面是对象时候，valueOf搞不定了，这个时候toString再出来帮忙执行它的toString方法。那么这次测试是在一元加法运算的情况下做测试的，所以我们也可以说：在一元加法运算的情况下，复杂数据类型对象，数组会先执行它们原型上的valueOf方法，如果不能转换成原始值，再执行toString方法，变成一堆字符...'[object Object]' ''...
+<p>继续console.log(a + 1)，返回结果为3，toString里面我们返回了2，结果为3，说明最后执行了toString。这说明了一个情况，当我们valueOf里面是对象时候，valueOf搞不定了，这个时候toString再出来帮忙执行它的toString方法。那么这次测试是在一元加法运算的情况下做测试的，所以我们也可以说：在一元加法运算的情况下，复杂数据类型对象，数组会先执行它们原型上的valueOf方法，如果不能转换成原始值，再执行toString方法，变成一堆字符...'[object Object]' ''</p>
 </ul>
     
 
